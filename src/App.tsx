@@ -1,6 +1,8 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { Post } from './types/Post';
 import { PostForm } from './components/PostForm';
+import { PostItem } from './components/PostItem';
+
 
 function App() {
 
@@ -57,11 +59,8 @@ function App() {
         <div className='mr-1'>Total de Posts: {posts.length}</div>
         <div className='mr-1'>
           {posts.map((item, index) => (
-            <div key={index} className='ml-4 mb-4'>
-              <h4 className='font-bold'>{item.title}</h4>
-            <small># {item.id} - Usuário: {item.userId}</small> 
-            <p>{item.body}</p>
-            </div>
+           < PostItem data={item} />
+            
           ))}
         </div>
 
