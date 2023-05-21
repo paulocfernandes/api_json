@@ -1,7 +1,8 @@
-import { useState, useEffect, ChangeEvent } from 'react'
+import { useState, useEffect } from 'react'
 import { Post } from './types/Post';
 import { PostForm } from './components/PostForm';
 import { PostItem } from './components/PostItem';
+import { api } from './api';
 
 
 function App() {
@@ -18,8 +19,7 @@ function App() {
   const loadPosts = async () => {
     try {
     setLoading(true)
-    let response =await fetch ('https://jsonplaceholder.typicode.com/posts')
-    let json = await response.json();
+    let json= await api.getAllPost()
     setLoading(false)
     setPosts(json);
    }  catch(e){
@@ -30,12 +30,7 @@ function App() {
 
 
       const handleAddPost = async (title: string, body:string) => {
-        let response = await fetch ('https://jsonplaceholder.typicode.com/posts', {
-          method: 'POST',
-          body: JSON.stringify ({title, body, userId: 1  }),
-          headers: { 'Content-Type ': 'application/json'}
-        });
-        let json = await response.json();
+        let json = await api.addNewPost(title, body, 1);
         
         if(json.id) {
           alert("Post adicionado com sucesso");
